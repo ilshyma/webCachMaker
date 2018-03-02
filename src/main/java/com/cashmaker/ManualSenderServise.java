@@ -6,16 +6,18 @@ import com.pengrad.telegrambot.model.request.ParseMode;
 import com.pengrad.telegrambot.request.SendMessage;
 import com.pengrad.telegrambot.response.SendResponse;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * Created by asti on 02.03.2018.
  */
-@Controller
+@RestController
 public class ManualSenderServise {
 
-    @RequestMapping("/send")
+    @GetMapping("/send")
     public String sendMes(@RequestParam("to") long id,
                           @RequestParam("text") String text) {
         System.out.println(String.format("Получил задачу отправить [%s] в чат {%s]", text, id));
