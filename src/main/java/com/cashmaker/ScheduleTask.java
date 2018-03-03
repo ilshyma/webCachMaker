@@ -54,9 +54,11 @@ public class ScheduleTask {
                 });
 
                 for (Map.Entry<String, CampaignDto> campaignDtoEntry : campaignMap.entrySet()) {
-                    if (campaignDtoEntry.getValue().getLeads() != null && (Integer.valueOf(campaignDtoEntry.getValue().getLeads()) % 5 == 0)) {
+                    if (campaignDtoEntry.getValue().getLeads() != null && Integer.valueOf(campaignDtoEntry.getValue().getLeads()) > 0 && (Integer.valueOf(campaignDtoEntry.getValue().getLeads()) % 5 == 0)) {
                         final String text = getLeadText(campaignDtoEntry.getKey(), campaignDtoEntry.getValue().getName(), Integer.valueOf(campaignDtoEntry.getValue().getLeads()));
                         senderApi.sendSyncMessageForGroupRecipients(CHAT_IDS, text);
+                    } else {
+                        log.info("Еще мало лидов...");
                     }
                 }
             } catch ( Exception e){
