@@ -37,12 +37,12 @@ public class ScheduleTask {
         this.binomDataService = binomDataService;
     }
 
-    @Scheduled(fixedRate = 5000)
+    @Scheduled(fixedRate = 30000)
     public void reportCurrentTime() {
         log.info("The time is now {}", LocalDateTime.now());
     }
 
-    @Scheduled(fixedRate = 5000)
+    @Scheduled(fixedRate = 30000)
     public void getCurrentCampaignData() {
         List<CampaignDto> campaignsData = binomDataService.getCampaignsData();
         if (!campaignsData.isEmpty()) {

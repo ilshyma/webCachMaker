@@ -1,47 +1,22 @@
-package com.cashmaker;
+package com.cashmaker.config;
 
-import com.cashmaker.bot.MyAmazingBot;
-import com.cashmaker.bot.SenderApi;
 import com.cashmaker.pojo.example.Quote;
-import com.pengrad.telegrambot.TelegramBot;
-import com.pengrad.telegrambot.model.Message;
-import com.pengrad.telegrambot.model.request.ParseMode;
-import com.pengrad.telegrambot.request.SendMessage;
-import com.pengrad.telegrambot.response.SendResponse;
-import org.apache.http.HttpHost;
-import org.apache.http.auth.AuthScope;
-import org.apache.http.auth.UsernamePasswordCredentials;
-import org.apache.http.client.CredentialsProvider;
-import org.apache.http.impl.client.BasicCredentialsProvider;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClientBuilder;
-import org.apache.http.impl.client.ProxyAuthenticationStrategy;
+import com.google.common.cache.CacheBuilder;
+import com.google.common.cache.CacheLoader;
+import com.google.common.cache.LoadingCache;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.core.task.SimpleAsyncTaskExecutor;
 import org.springframework.core.task.TaskExecutor;
-import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
-import org.springframework.scheduling.TaskScheduler;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.scheduling.concurrent.ConcurrentTaskScheduler;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
-import org.telegram.telegrambots.ApiContextInitializer;
-import org.telegram.telegrambots.TelegramBotsApi;
-import org.telegram.telegrambots.exceptions.TelegramApiException;
-
-import java.net.Authenticator;
-import java.net.PasswordAuthentication;
-import java.util.concurrent.Executor;
-import java.util.concurrent.ScheduledThreadPoolExecutor;
 
 
 /**
@@ -51,6 +26,7 @@ import java.util.concurrent.ScheduledThreadPoolExecutor;
 @RestController
 @EnableScheduling
 @EnableAsync
+@EnableCaching
 @ComponentScan(basePackages = "com.cashmaker")
 public class SpringBootRunner {
 
@@ -77,6 +53,8 @@ public class SpringBootRunner {
         return executor;
     }
 
+
+
 //    @Bean
 //    public ScheduleTask scheduleTask() {
 //        ScheduledThreadPoolExecutor scheduledThreadPoolExecutor = new ScheduledThreadPoolExecutor(5);
@@ -86,6 +64,18 @@ public class SpringBootRunner {
     public static void main(String[] args) throws Exception {
 
         SpringApplication.run(SpringBootRunner.class, args);
+
+        CacheLoader<String, String> loader;
+        loader = new CacheLoader<String, String>() {
+            @Override
+            public String load(String key) {
+                return key.toUpperCase();
+            }
+        };
+
+        LoadingCache<String, String> cache;
+        cache = CacheBuilder.newBuilder().build(loader);
+
 
         RestTemplate restTemplate = new RestTemplate();
         Quote quote = restTemplate.getForObject("http://gturnquist-quoters.cfapps.io/api/random", Quote.class);

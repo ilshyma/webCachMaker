@@ -1,6 +1,6 @@
 package com.cashmaker.bot;
 
-import com.cashmaker.SpringBootRunner;
+import com.cashmaker.config.SpringBootRunner;
 import com.pengrad.telegrambot.TelegramBot;
 import com.pengrad.telegrambot.model.Message;
 import com.pengrad.telegrambot.model.request.ParseMode;
