@@ -5,12 +5,22 @@ package com.cashmaker.goal;
  */
 public enum GoalType {
 
-    LEAD("leads")
+    LEAD("leads", 10)
     ;
 
-    GoalType(String dtoFieldProperty) {
+    GoalType(String dtoFieldProperty, int defaultGoalCount) {
         this.dtoFieldProperty = dtoFieldProperty;
+        this.defaultGoalCount = defaultGoalCount;
     }
 
     private String dtoFieldProperty;
+    private int defaultGoalCount;
+
+    public String getDtoFieldProperty() {
+        return dtoFieldProperty;
+    }
+
+    public int getDefaultGoalCount() {
+        return defaultGoalCount;
+    }
 }

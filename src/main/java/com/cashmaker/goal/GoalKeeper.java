@@ -1,15 +1,17 @@
 package com.cashmaker.goal;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
+
+import java.util.Objects;
 
 /**
  * Created by asti on 04.03.2018.
  */
-@Data
 @ToString
 @NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
 public class GoalKeeper {
 
     /**
@@ -25,4 +27,19 @@ public class GoalKeeper {
      * Настройки цели
      */
     private GoalsProperties goalsProperties;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof GoalKeeper)) return false;
+        GoalKeeper that = (GoalKeeper) o;
+        return Objects.equals(campaignId, that.campaignId) &&
+                goalType == that.goalType;
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(campaignId, goalType);
+    }
 }

@@ -5,7 +5,7 @@ import org.telegram.telegrambots.api.objects.Update;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.exceptions.TelegramApiException;
 
-public class MyAmazingBot extends TelegramLongPollingBot {
+public class RepeaterBot extends TelegramLongPollingBot {
     public void onUpdateReceived(Update update) {
 
         // We check if the update has a message and the message has text
@@ -28,7 +28,7 @@ public class MyAmazingBot extends TelegramLongPollingBot {
 
     public String getBotUsername() {
         // Return bot username
-        // If bot username is @MyAmazingBot, it must return 'MyAmazingBot'
+        // If bot username is @RepeaterBot, it must return 'RepeaterBot'
         return "wcmr_bot";
     }
 

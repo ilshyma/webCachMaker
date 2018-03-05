@@ -1,6 +1,7 @@
 package com.cashmaker.bot;
 
 import com.cashmaker.config.SpringBootRunner;
+import com.google.common.collect.Lists;
 import com.pengrad.telegrambot.TelegramBot;
 import com.pengrad.telegrambot.model.Message;
 import com.pengrad.telegrambot.model.request.ParseMode;
@@ -18,6 +19,9 @@ import java.util.List;
 @Component
 @Slf4j
 public class SenderApi {
+
+    public static List<Long> CHAT_IDS = Lists.newArrayList(247731410L, 339483084L);
+
 
     private static volatile TelegramBot instance;
 
@@ -40,7 +44,7 @@ public class SenderApi {
      * @param messageText текст сообщения
      */
     public void sendSyncMessageForGroupRecipients(List<Long> chatIds, String messageText){
-        log.info("sendSyncMessageForGroupRecipients() start work! текст [{}] чаты-получатели {}", messageText, chatIds);
+        log.info("sendSyncMessageForGroupRecipients() start work! текст [{}] чаты-получатели [{}]", messageText, chatIds);
         for (Long chatId : chatIds) {
             sendSyncMessageForOneRecipient(chatId, messageText);
         }

@@ -8,10 +8,6 @@ public class Main {
 
     public static void main(String[] args) {
 
-//        System.getProperties().put("http.proxyHost", "10.1.101.55");
-//        System.getProperties().put("http.proxyPort", "8080");
-//        System.getProperties().put("http.proxyUser", "dn180990svo1");
-//        System.getProperties().put("http.proxyPassword", "731323qq");
 
         // Initialize Api Context
 //        ApiContextInitializer.init();
@@ -22,7 +18,7 @@ public class Main {
 //        // Register our bot
 //        try {
 //
-//            botsApi.registerBot(new MyAmazingBot());
+//            botsApi.registerBot(new RepeaterBot());
 //            System.out.println("bot reg success");
 //        } catch (TelegramApiException e) {
 //            e.printStackTrace();

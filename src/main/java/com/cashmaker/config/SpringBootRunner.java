@@ -1,9 +1,6 @@
 package com.cashmaker.config;
 
-import com.cashmaker.pojo.example.Quote;
-import com.google.common.cache.CacheBuilder;
-import com.google.common.cache.CacheLoader;
-import com.google.common.cache.LoadingCache;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -28,6 +25,7 @@ import org.springframework.web.client.RestTemplate;
 @EnableAsync
 @EnableCaching
 @ComponentScan(basePackages = "com.cashmaker")
+@Slf4j
 public class SpringBootRunner {
 
     public static final String BOT_TOKEN = "564225171:AAHajRSJNkgcI-eWKP7azxz_a6zSTrVe5yM";
@@ -54,33 +52,11 @@ public class SpringBootRunner {
     }
 
 
-
-//    @Bean
-//    public ScheduleTask scheduleTask() {
-//        ScheduledThreadPoolExecutor scheduledThreadPoolExecutor = new ScheduledThreadPoolExecutor(5);
-//        return scheduledThreadPoolExecutor;
-//    }
-
     public static void main(String[] args) throws Exception {
 
         SpringApplication.run(SpringBootRunner.class, args);
+        log.info("App started...");
 
-        CacheLoader<String, String> loader;
-        loader = new CacheLoader<String, String>() {
-            @Override
-            public String load(String key) {
-                return key.toUpperCase();
-            }
-        };
-
-        LoadingCache<String, String> cache;
-        cache = CacheBuilder.newBuilder().build(loader);
-
-
-        RestTemplate restTemplate = new RestTemplate();
-        Quote quote = restTemplate.getForObject("http://gturnquist-quoters.cfapps.io/api/random", Quote.class);
-
-        System.out.println(quote);
 //        // бот
 //        TelegramBot bot = new TelegramBot("564225171:AAHajRSJNkgcI-eWKP7azxz_a6zSTrVe5yM");
 //
@@ -93,7 +69,7 @@ public class SpringBootRunner {
 //        // Register our bot
 //        try {
 //
-//            botsApi.registerBot(new MyAmazingBot());
+//            botsApi.registerBot(new RepeaterBot());
 //            System.out.println("bot reg success");
 //        } catch (TelegramApiException e) {
 //            e.printStackTrace();
